@@ -343,8 +343,7 @@
     <div class="alert">
       <span class="mark">⚠</span>
       <div>
-        All commands are case-sensitive — both the command itself and any argument (ship name, player name, faction tag). If a name contains a space, put it in quotes: <code>!fixship "My Ship Name"</code>. <code>!h</code> and <code>!hangar</code> are the same command.
-      </div>
+        All commands are case-sensitive — both the command itself and any argument (ship name, player name, faction tag). If a name contains a space, put it in quotes: <code>!fixship "My Ship Name"</code>.
     </div>
 
     <div class="search-wrap">
@@ -378,8 +377,6 @@
         <div class="cmd-row"><button class="cmd">/w "Name" message</button><div class="desc">Whisper to a player. Names are case-sensitive and support Tab-completion</div></div>
         <div class="cmd-row"><button class="cmd">/f</button><div class="desc">Switch to faction chat</div></div>
         <div class="cmd-row"><button class="cmd">/g</button><div class="desc">Switch to global chat</div></div>
-        <div class="cmd-row"><button class="cmd">!a  or  !al chat</button><div class="desc">Toggle between global chat and a nation's private chat (OPA / UN / MCR)</div></div>
-        <div class="cmd-row"><button class="cmd">!a  or  /a</button><div class="desc">The same nation↔global toggle (short form)</div></div>
       </div>
     </section>
 
@@ -388,12 +385,7 @@
       <div class="cmd-list">
         <div class="cmd-row"><button class="cmd">!fixship</button><div class="desc">Cuts and pastes the ship you're looking at — fixes most bugs. <span class="warn">Don't run it while inside shields!</span></div></div>
         <div class="cmd-row"><button class="cmd">!fixship "name"</button><div class="desc">Same thing, but by name — no need to look at the ship. Skip the quotes if the name has no spaces</div></div>
-        <div class="cmd-row"><button class="cmd">!fixrespawn</button><div class="desc">Makes a temporary Rockhopper permanent (required after spawning)</div></div>
         <div class="cmd-row"><button class="cmd">!grids list</button><div class="desc">Generates GPS markers for all your grids in the current instance</div></div>
-        <div class="cmd-row"><button class="cmd">!convert</button><div class="desc">Converts ship ↔ station. Doesn't work in natural gravity</div></div>
-        <div class="cmd-row"><button class="cmd">!rename "old name" "new name"</button><div class="desc">Renames a grid (ship or station). Needed if an ally welded the ship</div></div>
-        <div class="cmd-row"><button class="cmd">!entities refresh</button><div class="desc">Reloads all entities around you (invisible asteroids). <span class="warn">⚠ May crash the client</span></div></div>
-        <div class="cmd-row"><button class="cmd">/rts load</button><div class="desc">Reloads the speed config, fixes a stuck speedometer. Turn off your engines first</div></div>
       </div>
     </section>
 
@@ -403,9 +395,7 @@
       <div class="cmd-list">
         <div class="cmd-row"><button class="cmd">!h save  or  !hangar save</button><div class="desc">Save a ship to the hangar (look at it, do NOT sit inside — you'll get stuck)</div></div>
         <div class="cmd-row"><button class="cmd">!h list  or  !hangar list</button><div class="desc">List of ships in the hangar with index numbers</div></div>
-        <div class="cmd-row"><button class="cmd">!h load #  or  !hangar load #</button><div class="desc">Load ship #№ (# is the number from !h list)</div></div>
-        <div class="cmd-row danger"><button class="cmd">!h remove #  or  !hangar remove #</button><div class="desc"><span class="warn">⚠ DELETES ship #№ PERMANENTLY. No confirmation prompt. Admins won't compensate</span></div></div>
-        <div class="cmd-row"><button class="cmd">!hangar help</button><div class="desc">List of all hangar commands</div></div>
+
       </div>
     </section>
 
