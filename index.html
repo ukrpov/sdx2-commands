@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SDX — Command Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0f1a;
+    --panel: #101a2c;
+    --panel-2: #142238;
+    --border: #223250;
+    --text: #dbe4f2;
+    --muted: #7f92ae;
+    --amber: #e8a33d;
+    --amber-dim: #6b5228;
+    --danger: #e2574c;
+    --cyan: #5fb8d9;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --sans: 'IBM Plex Sans', system-ui, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(1200px 600px at 15% -10%, rgba(95,184,217,0.06), transparent 60%),
+      radial-gradient(900px 500px at 100% 10%, rgba(232,163,61,0.05), transparent 55%),
+      var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--cyan); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  .layout{
+    display:grid;
+    grid-template-columns:220px minmax(0,760px);
+    justify-content:center;
+    gap:56px;
+    max-width:1100px;
+    margin:0 auto;
+    padding:40px 24px 120px;
+  }
+
+  /* ---------- Nav ---------- */
+  nav.rail{
+    position:sticky;
+    top:24px;
+    align-self:start;
+    height:calc(100vh - 48px);
+    overflow-y:auto;
+    padding-right:8px;
+    font-size:13px;
+  }
+  nav.rail .rail-title{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.04em;
+    color:var(--muted);
+    margin-bottom:12px;
+  }
+  nav.rail ul{list-style:none; margin:0; padding:0;}
+  nav.rail li{margin-bottom:2px;}
+  nav.rail a{
+    display:block;
+    color:var(--muted);
+    padding:6px 10px;
+    border-radius:4px;
+    border-left:2px solid transparent;
+  }
+  nav.rail a:hover{color:var(--text); text-decoration:none; background:var(--panel);}
+  nav.rail a.active{color:var(--amber); border-left-color:var(--amber); background:var(--panel);}
+
+  /* ---------- Hero ---------- */
+  header.hero{
+    border:1px solid var(--border);
+    background:linear-gradient(180deg, var(--panel-2), var(--panel));
+    border-radius:6px;
+    padding:28px 28px 24px;
+    margin-bottom:28px;
+    position:relative;
+    overflow:hidden;
+  }
+  header.hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background:repeating-linear-gradient(0deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 3px);
+    pointer-events:none;
+  }
+  .boot-line{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--cyan);
+    opacity:0.85;
+    margin:0 0 14px;
+  }
+  .boot-line .ok{color:var(--amber);}
+  h1.title{
+    font-family:var(--sans);
+    font-size:32px;
+    font-weight:700;
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  p.subtitle{
+    color:var(--muted);
+    margin:0;
+    font-size:15px;
+    max-width:60ch;
+  }
+
+  /* ---------- Alert banner ---------- */
+  .alert{
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    background:rgba(226,87,76,0.08);
+    border:1px solid rgba(226,87,76,0.35);
+    border-radius:6px;
+    padding:14px 16px;
+    margin-bottom:36px;
+    font-size:14px;
+  }
+  .alert .mark{color:var(--danger); font-family:var(--mono); font-weight:600; flex-shrink:0;}
+  .alert code{color:var(--danger);}
+
+  /* ---------- Search ---------- */
+  .search-wrap{
+    position:sticky;
+    top:0;
+    z-index:20;
+    background:var(--bg);
+    padding:14px 0 16px;
+    margin-bottom:8px;
+  }
+  #search{
+    width:100%;
+    background:var(--panel);
+    border:1px solid var(--border);
+    color:var(--text);
+    font-family:var(--mono);
+    font-size:14px;
+    padding:11px 14px;
+    border-radius:6px;
+    outline:none;
+  }
+  #search::placeholder{color:var(--muted);}
+  #search:focus{border-color:var(--cyan);}
+  .search-count{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--muted);
+    margin-top:6px;
+  }
+
+  /* ---------- Sections ---------- */
+  section.block{
+    margin:44px 0;
+    scroll-margin-top:90px;
+  }
+  .block-head{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin-bottom:6px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--border);
+  }
+  .block-num{
+    font-family:var(--mono);
+    color:var(--amber);
+    font-size:14px;
+  }
+  h2.block-title{
+    font-size:19px;
+    margin:0;
+    font-weight:600;
+  }
+  p.block-note{
+    color:var(--muted);
+    font-size:14px;
+    margin:10px 0 16px;
+  }
+  p.block-note em{color:var(--text); font-style:normal; border-bottom:1px dashed var(--border);}
+
+  /* ---------- Command table ---------- */
+  .cmd-row{
+    display:grid;
+    grid-template-columns:minmax(140px,260px) 1fr;
+    gap:18px;
+    padding:12px 14px;
+    border-radius:5px;
+    border:1px solid transparent;
+    align-items:start;
+  }
+  .cmd-row:hover{background:var(--panel); border-color:var(--border);}
+  .cmd-row + .cmd-row{border-top:1px solid var(--border);}
+  .cmd-row.danger .cmd{color:var(--danger);}
+  .cmd{
+    font-family:var(--mono);
+    font-size:13.5px;
+    color:var(--amber);
+    cursor:pointer;
+    background:none;
+    border:none;
+    text-align:left;
+    padding:0;
+    line-height:1.6;
+  }
+  .cmd:hover{text-decoration:underline;}
+  .cmd .copied{
+    color:var(--cyan);
+    font-size:11px;
+    margin-left:8px;
+    opacity:0;
+    font-family:var(--sans);
+  }
+  .cmd.just-copied .copied{opacity:1;}
+  .desc{font-size:14px; color:var(--text);}
+  .desc .warn{color:var(--danger);}
+
+  /* ---------- Hotkeys ---------- */
+  .hotkeys{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px 24px;
+  }
+  .hk-row{
+    display:grid;
+    grid-template-columns:70px 1fr;
+    gap:14px;
+    align-items:center;
+    padding:8px 0;
+    border-bottom:1px solid var(--border);
+    font-size:14px;
+  }
+  kbd{
+    font-family:var(--mono);
+    background:var(--panel-2);
+    border:1px solid var(--border);
+    border-bottom-width:2px;
+    padding:3px 8px;
+    border-radius:4px;
+    font-size:12.5px;
+    color:var(--text);
+    justify-self:start;
+  }
+
+  /* ---------- Quick reference ---------- */
+  #quick{
+    border:1px solid var(--amber-dim);
+    background:rgba(232,163,61,0.05);
+    border-radius:6px;
+    padding:20px 22px 8px;
+  }
+  #quick .block-head{border-bottom-color:var(--amber-dim);}
+
+  footer{
+    margin-top:60px;
+    padding-top:20px;
+    border-top:1px solid var(--border);
+    color:var(--muted);
+    font-size:12.5px;
+    font-family:var(--mono);
+  }
+
+  .no-match{
+    display:none;
+    color:var(--muted);
+    font-size:13px;
+    padding:20px 0;
+    font-family:var(--mono);
+  }
+
+  /* ---------- Mobile ---------- */
+  @media (max-width: 860px){
+    .layout{grid-template-columns:1fr; padding:20px 16px 80px;}
+    nav.rail{
+      position:static;
+      height:auto;
+      display:flex;
+      overflow-x:auto;
+      gap:4px;
+      padding-bottom:8px;
+      margin-bottom:8px;
+      border-bottom:1px solid var(--border);
+    }
+    nav.rail ul{display:flex; gap:4px;}
+    nav.rail .rail-title{display:none;}
+    nav.rail a{white-space:nowrap; border-left:none; border-bottom:2px solid transparent;}
+    nav.rail a.active{border-left:none; border-bottom-color:var(--amber);}
+    .cmd-row{grid-template-columns:1fr; gap:4px;}
+    .hotkeys{grid-template-columns:1fr;}
+    h1.title{font-size:26px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <nav class="rail">
+    <div class="rail-title">SECTIONS</div>
+    <ul>
+      <li><a href="#quick">Most needed</a></li>
+      <li><a href="#s1">1. Chat</a></li>
+      <li><a href="#s2">2. Bug fixes</a></li>
+      <li><a href="#s3">3. Hangar</a></li>
+      <li><a href="#s4">4. GPS</a></li>
+      <li><a href="#s5">5. Factions</a></li>
+      <li><a href="#s6">6. Info & service</a></li>
+      <li><a href="#s7">7. Scripts</a></li>
+      <li><a href="#s8">8. Hotkeys</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <header class="hero">
+      <p class="boot-line">SDX TERMINAL // <span class="ok">CONNECTION ESTABLISHED</span> // server command reference</p>
+      <h1 class="title">SDX — Command Reference</h1>
+      <p class="subtitle">Every command, hotkey, and tip you need to play on SDX. Click any command to copy it.</p>
+    </header>
+
+    <div class="alert">
+      <span class="mark">⚠</span>
+      <div>
+        All commands are case-sensitive — both the command itself and any argument (ship name, player name, faction tag). If a name contains a space, put it in quotes: <code>!fixship "My Ship Name"</code>. <code>!h</code> and <code>!hangar</code> are the same command.
+      </div>
+    </div>
+
+    <div class="search-wrap">
+      <input id="search" type="text" placeholder="Search a command or description... e.g. hangar, gps, fixship" autocomplete="off">
+      <div class="search-count" id="searchCount"></div>
+    </div>
+
+    <section class="block" id="quick">
+      <div class="block-head">
+        <h2 class="block-title">Most needed — save this part separately</h2>
+      </div>
+      <p class="block-note">You'll use these commands nearly every session.</p>
+      <div class="cmd-list">
+        <div class="cmd-row"><button class="cmd">!h save</button><div class="desc">Before logging off — ALWAYS</div></div>
+        <div class="cmd-row"><button class="cmd">!h load #</button><div class="desc">After logging in — retrieve your ship</div></div>
+        <div class="cmd-row"><button class="cmd">!fixship</button><div class="desc">Ship is stuck, not moving, weapons not working</div></div>
+        <div class="cmd-row"><button class="cmd">!fixrespawn</button><div class="desc">Right after receiving a new Rockhopper</div></div>
+        <div class="cmd-row"><button class="cmd">!blocklimit mylimit</button><div class="desc">Check limits before building</div></div>
+        <div class="cmd-row"><button class="cmd">!nexus sectors true</button><div class="desc">NavMarkers setup (instance spheres)</div></div>
+        <div class="cmd-row"><button class="cmd">!supportus → !reward</button><div class="desc">Every day — vote and claim your reward</div></div>
+        <div class="cmd-row"><button class="cmd">!facinfo TAG</button><div class="desc">Check a faction before interacting</div></div>
+        <div class="cmd-row"><button class="cmd">/gps</button><div class="desc">Mark a position (before combat, an important spot)</div></div>
+        <div class="cmd-row"><button class="cmd">!grids list</button><div class="desc">Lost your ship — find GPS markers for all your grids</div></div>
+      </div>
+    </section>
+
+    <section class="block" id="s1">
+      <div class="block-head"><span class="block-num">01</span><h2 class="block-title">Chat & communication</h2></div>
+      <p class="block-note">There is no whisper-reply system — you can only initiate a whisper yourself.</p>
+      <div class="cmd-list">
+        <div class="cmd-row"><button class="cmd">/w "Name" message</button><div class="desc">Whisper to a player. Names are case-sensitive and support Tab-completion</div></div>
+        <div class="cmd-row"><button class="cmd">/f</button><div class="desc">Switch to faction chat</div></div>
+        <div class="cmd-row"><button class="cmd">/g</button><div class="desc">Switch to global chat</div></div>
+        <div class="cmd-row"><button class="cmd">!a  or  !al chat</button><div class="desc">Toggle between global chat and a nation's private chat (OPA / UN / MCR)</div></div>
+        <div class="cmd-row"><button class="cmd">!a  or  /a</button><div class="desc">The same nation↔global toggle (short form)</div></div>
+      </div>
+    </section>
+
+    <section class="block" id="s2">
+      <div class="block-head"><span class="block-num">02</span><h2 class="block-title">Bug fixes</h2></div>
+      <div class="cmd-list">
+        <div class="cmd-row"><button class="cmd">!fixship</button><div class="desc">Cuts and pastes the ship you're looking at — fixes most bugs. <span class="warn">Don't run it while inside shields!</span></div></div>
+        <div class="cmd-row"><button class="cmd">!fixship "name"</button><div class="desc">Same thing, but by name — no need to look at the ship. Skip the quotes if the name has no spaces</div></div>
+        <div class="cmd-row"><button class="cmd">!fixrespawn</button><div class="desc">Makes a temporary Rockhopper permanent (required after spawning)</div></div>
+        <div class="cmd-row"><button class="cmd">!grids list</button><div class="desc">Generates GPS markers for all your grids in the current instance</div></div>
+        <div class="cmd-row"><button class="cmd">!convert</button><div class="desc">Converts ship ↔ station. Doesn't work in natural gravity</div></div>
+        <div class="cmd-row"><button class="cmd">!rename "old name" "new name"</button><div class="desc">Renames a grid (ship or station). Needed if an ally welded the ship</div></div>
+        <div class="cmd-row"><button class="cmd">!entities refresh</button><div class="desc">Reloads all entities around you (invisible asteroids). <span class="warn">⚠ May crash the client</span></div></div>
+        <div class="cmd-row"><button class="cmd">/rts load</button><div class="desc">Reloads the speed config, fixes a stuck speedometer. Turn off your engines first</div></div>
+      </div>
+    </section>
+
+    <section class="block" id="s3">
+      <div class="block-head"><span class="block-num">03</span><h2 class="block-title">Personal hangar</h2></div>
+      <p class="block-note">Store your ships in the hangar every time before going offline. After 48 hours without you, they're hangared automatically.</p>
+      <div class="cmd-list">
+        <div class="cmd-row"><button class="cmd">!h save  or  !hangar save</button><div class="desc">Save a ship to the hangar (look at it, do NOT sit inside — you'll get stuck)</div></div>
+        <div class="cmd-row"><button class="cmd">!h list  or  !hangar list</button><div class="desc">List of ships in the hangar with index numbers</div></div>
+        <div class="cmd-row"><button class="cmd">!h load #  or  !hangar load #</button><div class="desc">Load ship #№ (# is the number from !h list)</div></div>
+        <div class="cmd-row danger"><button class="cmd">!h remove #  or  !hangar remove #</button><div class="desc"><span class="warn">⚠ DELETES ship #№ PERMANENTLY. No confirmation prompt. Admins won't compensate</span></div></div>
+        <div class="cmd-row"><button class="cmd">!hangar help</button><div class="desc">List of all hangar commands</div></div>
+      </div>
+    </section>
+
+    <section class="block" id="s4">
+      <div class="block-head"><span class="block-num">04</span><h2 class="block-title">GPS & navigation</h2></div>
+      <div class="cmd-list">
+        <div class="cmd-row"><button class="cmd">!gps</button><div class="desc">Add GPS markers for the current instance (gates, planets)</div></div>
+        <div class="cmd-row"><button class="cmd">/gps</button><div class="desc">Create a GPS at your current position</div></div>
+        <div class="cmd-row"><button class="cmd">!nexus sectors true</button><div class="desc">Show temporary GPS markers for all instances (disappear after ~1 min). Needed for NavMarkers</div></div>
+        <div class="cmd-row"><button class="cmd">!nexus lobby</button><div class="desc">Return to the cluster's starting lobby</div></div>
+      </div>
+    </section>
+
+    <section class="block" id="s5">
+      <div class="block-head"><span class="block-num">05</span><h2 class="block-title">Factions</h2></div>
+      <div class="cmd-list">
+        <div class="cmd-row"><button class="cmd">!facinfo TAG</button><div class="desc">Faction name, public info (+/-), member count</div></div>
+        <div class="cmd-row"><button class="cmd">!facinfo TAG true</button><div class="desc">Same, plus a list of all member names</div></div>
+        <div class="cmd-row"><button class="cmd">!pcucount</button><div class="desc">PCU count of the grid you're looking at (includes subgrids)</div></div>
+      </div>
+    </section>
+
+    <section class="block" id="s6">
+      <div class="block-head"><span class="block-num">06</span><h2 class="block-title">Info & service</h2></div>
+      <div class="cmd-list">
+        <div class="cmd-row"><button class="cmd">!sigma nr</button><div class="desc">Time until the next restart of the current instance</div></div>
+        <div class="cmd-row"><button class="cmd">!vote restart</button><div class="desc">Start a vote for a server restart</div></div>
+        <div class="cmd-row"><button class="cmd">!yes / !no</button><div class="desc">Vote for/against the restart</div></div>
+        <div class="cmd-row"><button class="cmd">!motd</button><div class="desc">Show the Message of the Day</div></div>
+        <div class="cmd-row"><button class="cmd">!longhelp</button><div class="desc">List of most available commands right in chat</div></div>
+        <div class="cmd-row"><button class="cmd">!npg</button><div class="desc">Link to the official New Player Guide</div></div>
+        <div class="cmd-row"><button class="cmd">!Discord / !discord</button><div class="desc">Open the SDX Discord via the Steam overlay</div></div>
+        <div class="cmd-row"><button class="cmd">!ticket</button><div class="desc">Open a support ticket via the Steam overlay</div></div>
+        <div class="cmd-row"><button class="cmd">!supportus</button><div class="desc">Vote for the server (once per day)</div></div>
+        <div class="cmd-row"><button class="cmd">!reward</button><div class="desc">Claim your voting reward</div></div>
+        <div class="cmd-row"><button class="cmd">!Donate / !donate</button><div class="desc">Link to the SDX Patreon</div></div>
+        <div class="cmd-row"><button class="cmd">!friend TAG</button><div class="desc">Raise relations with a faction to allied</div></div>
+        <div class="cmd-row"><button class="cmd">!claim</button><div class="desc">Claims the grid you're looking at (requires access to 70%+ of its blocks)</div></div>
+        <div class="cmd-row"><button class="cmd">!claim true</button><div class="desc">Same, plus sharing with your faction</div></div>
+      </div>
+    </section>
+
+    <section class="block" id="s7">
+      <div class="block-head"><span class="block-num">07</span><h2 class="block-title">Scripts & programmable blocks</h2></div>
+      <p class="block-note">Script access is granted separately via a Discord ticket. Limit: 0.5 ms/frame per player.</p>
+      <div class="cmd-list">
+        <div class="cmd-row"><button class="cmd">!pbcost</button><div class="desc">Show the server load from your PBs</div></div>
+        <div class="cmd-row"><button class="cmd">/sort</button><div class="desc">Command for GV Inventory — sorts inventory using rules from custom data</div></div>
+      </div>
+    </section>
+
+    <section class="block" id="s8">
+      <div class="block-head"><span class="block-num">08</span><h2 class="block-title">Useful hotkeys</h2></div>
+      <div class="hotkeys">
+        <div class="hk-row"><kbd>M</kbd><span>Open the map / GPS</span></div>
+        <div class="hk-row"><kbd>K</kbd><span>Terminal (Control Panel) — manage all of the ship's blocks</span></div>
+        <div class="hk-row"><kbd>G</kbd><span>Toolbar (Hotbar) — configure buttons</span></div>
+        <div class="hk-row"><kbd>Enter → F2</kbd><span>Mod menu (NavMarkers, Drive Signature HUD, etc.)</span></div>
+        <div class="hk-row"><kbd>F5</kbd><span>Reconnect — fixes weapon desync (before combat)</span></div>
+        <div class="hk-row"><kbd>Backspace</kbd><span>Respawn (choose a spawn point)</span></div>
+        <div class="hk-row"><kbd>Tab</kbd><span>Hide the UI</span></div>
+        <div class="hk-row"><kbd>Num 0</kbd><span>Core HUD</span></div>
+      </div>
+    </section>
+
+    <div class="no-match" id="noMatch">No matches found. Try a different search.</div>
+
+    <footer>SDX // command reference · click any command to copy it</footer>
+  </main>
+
+</div>
+
+<script>
+  // Copy-to-clipboard on command click
+  document.querySelectorAll('.cmd').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const text = btn.firstChild.textContent.trim();
+      navigator.clipboard.writeText(text).then(() => {
+        let note = btn.querySelector('.copied');
+        if(!note){
+          note = document.createElement('span');
+          note.className = 'copied';
+          note.textContent = 'copied';
+          btn.appendChild(note);
+        }
+        btn.classList.add('just-copied');
+        setTimeout(() => btn.classList.remove('just-copied'), 1200);
+      });
+    });
+  });
+
+  // Live search across command rows
+  const search = document.getElementById('search');
+  const rows = Array.from(document.querySelectorAll('.cmd-row'));
+  const sections = Array.from(document.querySelectorAll('section.block'));
+  const noMatch = document.getElementById('noMatch');
+  const searchCount = document.getElementById('searchCount');
+
+  search.addEventListener('input', () => {
+    const q = search.value.trim().toLowerCase();
+    let visibleCount = 0;
+
+    rows.forEach(row => {
+      const cmdText = row.querySelector('.cmd').firstChild.textContent.toLowerCase();
+      const descText = row.querySelector('.desc').textContent.toLowerCase();
+      const match = q === '' || cmdText.includes(q) || descText.includes(q);
+      row.style.display = match ? '' : 'none';
+      if(match) visibleCount++;
+    });
+
+    sections.forEach(sec => {
+      const anyVisible = Array.from(sec.querySelectorAll('.cmd-row')).some(r => r.style.display !== 'none');
+      sec.style.display = (q === '' || anyVisible) ? '' : 'none';
+    });
+
+    noMatch.style.display = (q !== '' && visibleCount === 0) ? 'block' : 'none';
+    searchCount.textContent = q === '' ? '' : `Found: ${visibleCount}`;
+  });
+
+  // Active nav link on scroll
+  const navLinks = Array.from(document.querySelectorAll('nav.rail a'));
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const id = entry.target.getAttribute('id');
+      const link = navLinks.find(a => a.getAttribute('href') === '#' + id);
+      if(!link) return;
+      if(entry.isIntersecting){
+        navLinks.forEach(a => a.classList.remove('active'));
+        link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  document.querySelectorAll('section.block[id], #quick').forEach(sec => observer.observe(sec));
+</script>
+
+</body>
+</html>
