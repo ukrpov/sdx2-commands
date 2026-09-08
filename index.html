@@ -321,14 +321,13 @@
   <nav class="rail">
     <div class="rail-title">SECTIONS</div>
     <ul>
-      <li><a href="#quick">Most needed</a></li>
       <li><a href="#s1">1. Chat</a></li>
       <li><a href="#s2">2. Bug fixes</a></li>
-      <li><a href="#s3">3. Hangar</a></li>
-      <li><a href="#s4">4. GPS</a></li>
-      <li><a href="#s5">5. Factions</a></li>
-      <li><a href="#s6">6. Info & service</a></li>
-      <li><a href="#s7">7. Scripts</a></li>
+      <li><a href="#s3">3. GPS</a></li>
+      <li><a href="#s4">4. Factions</a></li>
+      <li><a href="#s5">5. Info & service</a></li>
+      <li><a href="#s6">6. Scripts</a></li>
+      <li><a href="#s7">7. ShipCore Framework</a></li>
       <li><a href="#s8">8. Hotkeys</a></li>
     </ul>
   </nav>
@@ -344,31 +343,13 @@
       <span class="mark">⚠</span>
       <div>
         All commands are case-sensitive — both the command itself and any argument (ship name, player name, faction tag). If a name contains a space, put it in quotes: <code>!fixship "My Ship Name"</code>.
+      </div>
     </div>
 
     <div class="search-wrap">
-      <input id="search" type="text" placeholder="Search a command or description... e.g. hangar, gps, fixship" autocomplete="off">
+      <input id="search" type="text" placeholder="Search a command or description..." autocomplete="off">
       <div class="search-count" id="searchCount"></div>
     </div>
-
-    <section class="block" id="quick">
-      <div class="block-head">
-        <h2 class="block-title">Most needed — save this part separately</h2>
-      </div>
-      <p class="block-note">You'll use these commands nearly every session.</p>
-      <div class="cmd-list">
-        <div class="cmd-row"><button class="cmd">!h save</button><div class="desc">Before logging off — ALWAYS</div></div>
-        <div class="cmd-row"><button class="cmd">!h load #</button><div class="desc">After logging in — retrieve your ship</div></div>
-        <div class="cmd-row"><button class="cmd">!fixship</button><div class="desc">Ship is stuck, not moving, weapons not working</div></div>
-        <div class="cmd-row"><button class="cmd">!fixrespawn</button><div class="desc">Right after receiving a new Rockhopper</div></div>
-        <div class="cmd-row"><button class="cmd">!blocklimit mylimit</button><div class="desc">Check limits before building</div></div>
-        <div class="cmd-row"><button class="cmd">!nexus sectors true</button><div class="desc">NavMarkers setup (instance spheres)</div></div>
-        <div class="cmd-row"><button class="cmd">!supportus → !reward</button><div class="desc">Every day — vote and claim your reward</div></div>
-        <div class="cmd-row"><button class="cmd">!facinfo TAG</button><div class="desc">Check a faction before interacting</div></div>
-        <div class="cmd-row"><button class="cmd">/gps</button><div class="desc">Mark a position (before combat, an important spot)</div></div>
-        <div class="cmd-row"><button class="cmd">!grids list</button><div class="desc">Lost your ship — find GPS markers for all your grids</div></div>
-      </div>
-    </section>
 
     <section class="block" id="s1">
       <div class="block-head"><span class="block-num">01</span><h2 class="block-title">Chat & communication</h2></div>
@@ -390,17 +371,7 @@
     </section>
 
     <section class="block" id="s3">
-      <div class="block-head"><span class="block-num">03</span><h2 class="block-title">Personal hangar</h2></div>
-      <p class="block-note">Store your ships in the hangar every time before going offline. After 48 hours without you, they're hangared automatically.</p>
-      <div class="cmd-list">
-        <div class="cmd-row"><button class="cmd">!h save  or  !hangar save</button><div class="desc">Save a ship to the hangar (look at it, do NOT sit inside — you'll get stuck)</div></div>
-        <div class="cmd-row"><button class="cmd">!h list  or  !hangar list</button><div class="desc">List of ships in the hangar with index numbers</div></div>
-
-      </div>
-    </section>
-
-    <section class="block" id="s4">
-      <div class="block-head"><span class="block-num">04</span><h2 class="block-title">GPS & navigation</h2></div>
+      <div class="block-head"><span class="block-num">03</span><h2 class="block-title">GPS & navigation</h2></div>
       <div class="cmd-list">
         <div class="cmd-row"><button class="cmd">!gps</button><div class="desc">Add GPS markers for the current instance (gates, planets)</div></div>
         <div class="cmd-row"><button class="cmd">/gps</button><div class="desc">Create a GPS at your current position</div></div>
@@ -409,8 +380,8 @@
       </div>
     </section>
 
-    <section class="block" id="s5">
-      <div class="block-head"><span class="block-num">05</span><h2 class="block-title">Factions</h2></div>
+    <section class="block" id="s4">
+      <div class="block-head"><span class="block-num">04</span><h2 class="block-title">Factions</h2></div>
       <div class="cmd-list">
         <div class="cmd-row"><button class="cmd">!facinfo TAG</button><div class="desc">Faction name, public info (+/-), member count</div></div>
         <div class="cmd-row"><button class="cmd">!facinfo TAG true</button><div class="desc">Same, plus a list of all member names</div></div>
@@ -418,9 +389,11 @@
       </div>
     </section>
 
-    <section class="block" id="s6">
-      <div class="block-head"><span class="block-num">06</span><h2 class="block-title">Info & service</h2></div>
+    <section class="block" id="s5">
+      <div class="block-head"><span class="block-num">05</span><h2 class="block-title">Info & service</h2></div>
       <div class="cmd-list">
+        <div class="cmd-row"><button class="cmd">!h save</button><div class="desc">Save a ship to the hangar (look at it, do NOT sit inside — you'll get stuck)</div></div>
+        <div class="cmd-row"><button class="cmd">/spectrum rcs</button><div class="desc">Outputs the radar cross section of the grid you are currently seated on</div></div>
         <div class="cmd-row"><button class="cmd">!motd</button><div class="desc">Show the Message of the Day</div></div>
         <div class="cmd-row"><button class="cmd">!longhelp</button><div class="desc">List of most available commands right in chat</div></div>
         <div class="cmd-row"><button class="cmd">!supportus</button><div class="desc">Vote for the server (once per day)</div></div>
@@ -428,16 +401,43 @@
         <div class="cmd-row"><button class="cmd">!Donate / !donate</button><div class="desc">Link to the SDX Patreon</div></div>
         <div class="cmd-row"><button class="cmd">!friend TAG</button><div class="desc">Raise relations with a faction to allied</div></div>
         <div class="cmd-row"><button class="cmd">!claim</button><div class="desc">Claims the grid you're looking at (requires access to 70%+ of its blocks)</div></div>
-        <div class="cmd-row"><button class="cmd">!claim true</button><div class="desc">Same, plus sharing with your faction</div></div>
+        <div class="cmd-row"><button class="cmd">!claim true</button><div class="desc">Same, plus sharing with your faction (requires access to 100% of its blocks)</div></div>
       </div>
     </section>
 
-    <section class="block" id="s7">
-      <div class="block-head"><span class="block-num">07</span><h2 class="block-title">Scripts & programmable blocks</h2></div>
+    <section class="block" id="s6">
+      <div class="block-head"><span class="block-num">06</span><h2 class="block-title">Scripts & programmable blocks</h2></div>
       <p class="block-note">Script access is granted separately via a Discord ticket. Limit: 0.5 ms/frame per player.</p>
       <div class="cmd-list">
         <div class="cmd-row"><button class="cmd">!pbcost</button><div class="desc">Show the server load from your PBs</div></div>
         <div class="cmd-row"><button class="cmd">/sort</button><div class="desc">Command for GV Inventory — sorts inventory using rules from custom data</div></div>
+      </div>
+    </section>
+
+    <section class="block" id="s7">
+      <div class="block-head"><span class="block-num">07</span><h2 class="block-title">ShipCore Framework</h2></div>
+      <p class="block-note">Commands for the <em>/core</em> ship-core system. Admin-only commands are left out of this list.</p>
+      <div class="cmd-list">
+        <div class="cmd-row"><button class="cmd">/core help</button><div class="desc">Shows this help screen</div></div>
+        <div class="cmd-row"><button class="cmd">/core select &lt;NoCoreName|Subtype&gt;</button><div class="desc">Selects the NoCore configuration for this world and saves it</div></div>
+        <div class="cmd-row"><button class="cmd">/core listnocores</button><div class="desc">Lists available NoCore configs</div></div>
+        <div class="cmd-row"><button class="cmd">/core listcores</button><div class="desc">Lists available ship cores</div></div>
+        <div class="cmd-row"><button class="cmd">/core coreinfo &lt;UniqueName&gt;</button><div class="desc">Shows details for a core by UniqueName</div></div>
+        <div class="cmd-row"><button class="cmd">/core reloadconfig</button><div class="desc">Reloads configuration from disk</div></div>
+        <div class="cmd-row"><button class="cmd">/core listnfzs</button><div class="desc">Lists defined NoFlyZones with their IDs</div></div>
+        <div class="cmd-row"><button class="cmd">/core createnfz &lt;radius&gt; forceoff:true|false [GPS:...] [allowedSubtype1 allowedSubtype2 ...]</button><div class="desc">Creates a new NoFlyZone. If a GPS is provided, it's used as the center — otherwise your current position is used. The 'forceoff' flag determines whether block limits are overridden and forced shutoff is applied in this zone</div></div>
+        <div class="cmd-row"><button class="cmd">/core deletenfz &lt;id&gt;</button><div class="desc">Deletes a NoFlyZone by its ID</div></div>
+        <div class="cmd-row"><button class="cmd">/core debug on|off</button><div class="desc">Toggles world debug mode and syncs it to clients</div></div>
+        <div class="cmd-row"><button class="cmd">/core setworldspeed &lt;m/s&gt;</button><div class="desc">Sets the session max possible speed in m/s</div></div>
+        <div class="cmd-row"><button class="cmd">/core ignoretags list</button><div class="desc">Lists the current ignored faction tags</div></div>
+        <div class="cmd-row"><button class="cmd">/core info</button><div class="desc">Raycasts from crosshairs to find a grid and displays all its core information</div></div>
+        <div class="cmd-row"><button class="cmd">/core mass</button><div class="desc">Raycasts from crosshairs and shows dry mass by block type for every grid in the mechanical group</div></div>
+        <div class="cmd-row"><button class="cmd">/core limits</button><div class="desc">Raycasts from crosshairs to find a grid and displays per-limit block usage by display name</div></div>
+        <div class="cmd-row"><button class="cmd">/core inventory</button><div class="desc">Shows your player and faction core counts</div></div>
+        <div class="cmd-row"><button class="cmd">/corehud</button><div class="desc">Toggles the client Core HUD on or off</div></div>
+        <div class="cmd-row"><button class="cmd">/corehud &lt;1-3|standard|detailed|full&gt;</button><div class="desc">Sets and saves the client HUD detail level. Cockpits automatically use the minimal combat view</div></div>
+        <div class="cmd-row"><button class="cmd">/corehud level &lt;1-3|standard|detailed|full&gt;</button><div class="desc">Alternative syntax for setting the saved client HUD detail level</div></div>
+        <div class="cmd-row"><button class="cmd">/corehud position &lt;top-left|top-right|center-left|center-right|bottom-left|bottom-right&gt;</button><div class="desc">Sets and saves the client HUD screen position</div></div>
       </div>
     </section>
 
